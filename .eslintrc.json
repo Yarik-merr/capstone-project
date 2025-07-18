@@ -1,27 +1,59 @@
 {
+  // Указываем, в какой среде работает код.
+  // browser: у нас есть доступ к объектам типа window, document и т.п.
+  // es2021: разрешаем синтаксис ECMAScript 2021 (включая async/await, optional chaining и т.д.)
   "env": {
     "browser": true,
     "es2021": true
   },
+
+  // Наследуем наборы правил.
+  // eslint:recommended — базовые правила от ESLint, включают предотвращение самых распространённых ошибок.
+  // plugin:react/recommended — включает рекомендуемые правила для React.
+  // plugin:@typescript-eslint/recommended — включает набор правил для TypeScript.
+  // prettier — отключает любые правила, которые конфликтуют с форматированием Prettier (важно для совместимости!)
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     "prettier"
   ],
+
+  // Указываем, какой парсер используется.
+  // По умолчанию ESLint не понимает TypeScript — нужен отдельный парсер.
   "parser": "@typescript-eslint/parser",
+
+  // Настройки парсера.
   "parserOptions": {
+    // Поддержка последних возможностей JavaScript
     "ecmaVersion": "latest",
+
+    // Код написан в виде модулей (используем import/export)
     "sourceType": "module",
+
+    // Включаем поддержку JSX — нужна для React-компонентов
     "ecmaFeatures": {
       "jsx": true
     }
   },
+
+  // Подключаем необходимые плагины.
+  // react — правила, специфичные для React
+  // @typescript-eslint — правила, специфичные для TypeScript
   "plugins": ["react", "@typescript-eslint"],
+
+  // Кастомные правила, которые переопределяют дефолтные.
   "rules": {
+    // React 17+ позволяет использовать JSX без import React — отключаем устаревшее требование
     "react/react-in-jsx-scope": "off",
+
+    // Если переменная не используется — выдаём предупреждение, а не ошибку.
+    // Это удобно в процессе разработки, когда ещё не всё написано.
     "@typescript-eslint/no-unused-vars": "warn"
   },
+
+  // Автоматически определяет, какая версия React используется.
+  // Это нужно для корректной работы некоторых правил React-плагина.
   "settings": {
     "react": {
       "version": "detect"
